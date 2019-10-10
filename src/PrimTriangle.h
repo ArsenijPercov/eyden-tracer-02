@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Prim.h"
-
+#include <stdlib.h>
 /**
  * @brief Triangle Geaometrical Primitive class
  */
@@ -59,7 +59,7 @@ public:
 
 	virtual Vec3f GetNormal(const Ray& ray) const override
 	{
-		// --- PUT YOUR CODE HERE ---
+		
 		return Vec3f();
 	}
 	

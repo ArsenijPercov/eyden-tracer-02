@@ -12,6 +12,7 @@
 
 #include "LightPoint.h"
 #include "LightArea.h"
+#include <stdlib.h>
 
 Mat RenderFrame(void)
 {
@@ -19,17 +20,17 @@ Mat RenderFrame(void)
 	CScene scene;
 
 	// Flat surface shaders
-	auto shd1 = std::make_shared<CShaderFlat>(RGB(1, 0, 0)); // red surface
-	auto shd2 = std::make_shared<CShaderFlat>(RGB(0, 1, 0)); // green surface
-	auto shd3 = std::make_shared<CShaderFlat>(RGB(0, 0, 1)); // blue surface
+	//auto shd1 = std::make_shared<CShaderFlat>(RGB(1, 0, 0)); // red surface
+	//auto shd2 = std::make_shared<CShaderFlat>(RGB(0, 1, 0)); // green surface
+	//auto shd3 = std::make_shared<CShaderFlat>(RGB(0, 0, 1)); // blue surface
 	auto shd4 = std::make_shared<CShaderFlat>(RGB(1, 1, 0)); // yellow surface
 	auto shd5 = std::make_shared<CShaderFlat>(RGB(0, 1, 1)); // cyan surface
 	auto shd6 = std::make_shared<CShaderFlat>(RGB(1, 1, 1)); // white surface
 
 	// EyeLight surface shaders
-//	auto shd1 = std::make_shared<CShaderEyelight>(RGB(1, 0, 0)); // red surface
-//	auto shd2 = std::make_shared<CShaderEyelight>(RGB(0, 1, 0)); // green surface
-//	auto shd3 = std::make_shared<CShaderEyelight>(RGB(0, 0, 1)); // blue surface
+	auto shd1 = std::make_shared<CShaderEyelight>(RGB(1, 0, 0)); // red surface
+	auto shd2 = std::make_shared<CShaderEyelight>(RGB(0, 1, 0)); // green surface
+	auto shd3 = std::make_shared<CShaderEyelight>(RGB(0, 0, 1)); // blue surface
 //	auto shd4 = std::make_shared<CShaderEyelight>(RGB(1, 1, 0)); // yellow surface
 //	auto shd5 = std::make_shared<CShaderEyelight>(RGB(0, 1, 1)); // cyan surface
 //	auto shd6 = std::make_shared<CShaderEyelight>(RGB(1, 1, 1)); // white surface
@@ -68,8 +69,9 @@ Mat RenderFrame(void)
 		for (int x = 0; x < img.cols; x++) {
 			scene.m_pCamera->InitRay(x, y, ray); // initialize ray
 			img.at<Vec3f>(y, x) = scene.RayTrace(ray); 
+
 		}
-	
+
 	img.convertTo(img, CV_8UC3, 255);
 	return img;
 }

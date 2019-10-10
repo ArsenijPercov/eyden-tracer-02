@@ -21,8 +21,10 @@ public:
 
 	virtual Vec3f Shade(const Ray& ray) const override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return RGB(0, 0, 0);
+		auto norm_ray = ray.hit->GetNormal(ray);
+		auto theta = fabs(norm_ray.dot(ray.dir));
+		
+		return theta*CShaderFlat::Shade(ray);
 	}
 };
 

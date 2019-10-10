@@ -3,7 +3,7 @@
 #pragma once
 
 #include "Prim.h"
-
+#include <stdlib.h>
 /**
  * @brief The Plane Geaometrical Primitive class
  */

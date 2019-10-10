@@ -40,7 +40,7 @@ public:
 	 */
 	virtual Vec3f	GetNormal(const Ray& ray) const = 0;
 	
-	std::shared_ptr<IShader> getShader(void) const { return m_pShader; }
+	std::shared_ptr<IShader> getShader(void) const {return m_pShader; }
 
 private:
 	std::shared_ptr<IShader>	m_pShader;

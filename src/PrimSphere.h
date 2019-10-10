@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Prim.h"
+#include <stdlib.h>
 
 /**
  * @brief Sphere Geaometrical Primitive class
@@ -55,8 +56,8 @@ public:
 	
 	virtual Vec3f GetNormal(const Ray& ray) const override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		Vec3f point_intersect = ray.org + ray.t*ray.dir;	
+		return normalize(point_intersect - m_center);
 	}
 	
 private:

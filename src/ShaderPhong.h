@@ -29,6 +29,8 @@ public:
 	virtual Vec3f Shade(const Ray& ray) const override
 	{
 		// --- PUT YOUR CODE HERE ---
+		std::cout<<"Intersects"<<std::endl;
+
 		return RGB(0, 0, 0);
 	}
 
