@@ -35,7 +35,7 @@ public:
 	 */
 	void Add(const std::shared_ptr<ILight> pLight)
 	{
-	m_vpLights.push_back(pLight);
+		m_vpLights.push_back(pLight);
 	}
   
 	/**
@@ -67,7 +67,14 @@ public:
 	 */
 	bool Occluded(Ray& ray)
 	{
-		// --- PUT YOUR CODE HERE ---
+		bool tempInt = false;
+		for (std::vector<std::shared_ptr<CPrim>>::const_iterator it = m_vpPrims.begin() ; it != m_vpPrims.end(); ++it)
+		{
+			tempInt = (*it)->Intersect(ray);
+			if (tempInt){
+				return true;
+			} 
+		}
 		return false;
 	}
 

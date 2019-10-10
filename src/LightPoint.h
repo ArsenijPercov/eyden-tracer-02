@@ -21,8 +21,8 @@ public:
 
 	virtual std::optional<Vec3f> Illuminate(Ray& ray) override
 	{
-		// --- PUT YOUR CODE HERE ---
-		return Vec3f();
+		ray.dir = normalize(m_position - ray.org);
+		return normalize(m_intensity / norm(ray.dir)*norm(ray.dir));
 	}
 
 

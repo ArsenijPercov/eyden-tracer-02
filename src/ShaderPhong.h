@@ -28,10 +28,35 @@ public:
 
 	virtual Vec3f Shade(const Ray& ray) const override
 	{
-		// --- PUT YOUR CODE HERE ---
-		std::cout<<"Intersects"<<std::endl;
+		Vec3f sol_a;
+		Vec3f diff_sum = 0;
+		Vec3f spec_sum = 0;
+		Ray ray2;
+		Vec3f refl_dir;
+		std::optional<Vec3f> intens;
 
-		return RGB(0, 0, 0);
+		sol_a = m_ka*RGB(1,1,1);
+
+		ray2.org = ray.org + ray.t*ray.dir;
+		ray2.t = std::numeric_limits<float>::infinity();
+
+		for (auto it = m_scene.m_vpLights.begin();it != m_scene.m_vpLights.end();++it)
+		{
+			intens = (*it).get()->Illuminate(ray2);
+			if (!m_scene.Occluded(ray2))
+			{
+				diff_sum += *intens *max(0.0f,ray2.dir.dot(ray.hit->GetNormal(ray)));
+				
+				refl_dir = ray2.dir - 2 * (ray2.dir.dot(ray.hit->GetNormal(ray))) * ray.hit->GetNormal(ray);
+				float dp = ray.dir.dot(refl_dir);
+				if (dp<0) dp =0;
+				spec_sum += *intens*pow(dp,m_ke);
+			}	
+		}
+
+		Vec3f sol_d = m_kd*CShaderFlat::Shade(ray).mul(diff_sum);
+		Vec3f sol_e = m_ks*RGB(1,1,1)*spec_sum;
+		return sol_a + sol_d + sol_e;
 	}
 
 	
